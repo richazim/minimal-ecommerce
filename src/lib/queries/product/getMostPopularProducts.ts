@@ -3,6 +3,7 @@ import { cache } from "@/lib/utils/cache"
 
 export const getMostPopularProducts = cache(
   async () => {
+
     return products
       .filter(product => product.isAvailableForPurchase)
       .slice(0, 6)

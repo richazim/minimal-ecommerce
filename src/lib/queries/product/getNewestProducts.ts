@@ -8,5 +8,5 @@ export const getNewestProducts = cache(
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(0, 6)
   },
-  ["/", "getNewestProducts"]
+  ["/", "getNewestProducts"],
 )
