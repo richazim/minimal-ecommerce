@@ -1,4 +1,4 @@
-type CheckoutFormProps = {
+export type CheckoutFormProps = {
   product: {
     id: string
     imagePath: string

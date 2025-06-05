@@ -7,6 +7,7 @@ import {
 import Image from "next/image"
 import PaymentForm from "./PaymentForm"
 import { formatCurrency } from "@/lib/utils/format"
+import { CheckoutFormProps } from "@/types/checkout"
 
 export function CheckoutForm({ product, clientSecret }: CheckoutFormProps) {
   return (

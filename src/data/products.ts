@@ -6,7 +6,7 @@ export const products = [
       filePath: "/api/uploads/image2.webp",
       imagePath: "/api/uploads/lkjlkjnjbkjn.png",
       description: "A complete guide to mastering React and hooks.",
-      isAvailableForPurchase: true,
+      isAvailableForPurchase: false,
       createdAt: new Date("2024-01-01T10:00:00Z"),
       updatedAt: new Date("2024-05-01T12:00:00Z"),
     },

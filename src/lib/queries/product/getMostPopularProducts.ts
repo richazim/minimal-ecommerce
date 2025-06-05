@@ -9,6 +9,6 @@ export const getMostPopularProducts = cache(
       .slice(0, 6)
   },
   ["/", "getMostPopularProducts"],
-  { revalidate: 60 * 60 * 24 }
+  { revalidate: 60 }
 )
 
