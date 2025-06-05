@@ -7,7 +7,7 @@ export const downloadVerifications = [
     },
     {
       id: "dv-002",
-      expiresAt: new Date("2025-06-12T00:00:00Z"),
+      expiresAt: new Date("2026-06-12T00:00:00Z"),
       createdAt: new Date("2025-06-02T00:00:00Z"),
       productId: "prod-002",
     },

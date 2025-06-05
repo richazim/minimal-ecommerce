@@ -14,7 +14,7 @@ export const products = [
       id: "prod-002",
       name: "Tailwind UI Kit",
       priceInCents: 2999,
-      filePath: "/api/uploads/image2.webp",
+      filePath: "/api/uploads/lkjlkjnjbkjn.png",
       imagePath: "/api/uploads/lkjlkjnjbkjn.png",
       description: "A full set of Tailwind CSS components for rapid prototyping.",
       isAvailableForPurchase: true,

@@ -1,5 +1,6 @@
-import { stripe } from "./client"
+import { getStripeInstance } from "./getStripeInstance";
+
 
 export async function getPaymentIntent(id: string) {
-  return stripe.paymentIntents.retrieve(id)
+  return (await getStripeInstance()).paymentIntents.retrieve(id)
 }
