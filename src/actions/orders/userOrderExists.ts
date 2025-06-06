@@ -1,13 +1,24 @@
 "use server"
 
-import { orders } from "@/data/orders"
-import { users } from "@/data/users"
+import db from "@/db/db"
 
 export async function userOrderExists(email: string, productId: string): Promise<boolean> {
-  const user = users.find(user => user.email === email)
+  const user = await db.user.findUnique({
+    where: { email },
+    select: { id: true },
+  })
+
   if (!user) return false
 
-  return orders.some(order => order.userId === user.id && order.productId === productId)
+  const orderExists = await db.order.findFirst({
+    where: {
+      userId: user.id,
+      productId,
+    },
+  })
+
+  return orderExists !== null
 }
+
 
 // src/actions: Contient des fonctions exécutées côté serveur via la directive "use server"

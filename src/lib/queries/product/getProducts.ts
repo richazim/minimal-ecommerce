@@ -1,11 +1,12 @@
+import db from "@/db/db"
 import { cache } from "@/lib/utils/cache"
-import { products } from "@/data/products"
 
 export const getProducts = cache(
   async () => {
-    return products
-      .filter(product => product.isAvailableForPurchase)
-      .sort((a, b) => a.name.localeCompare(b.name))
+    return await db.product.findMany({
+      where: { isAvailableForPurchase: true },
+      orderBy: { name: "asc" },
+    })
   },
   ["/products", "getProducts"]
 )
