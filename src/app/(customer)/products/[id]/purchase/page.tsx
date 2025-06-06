@@ -3,6 +3,8 @@ import Stripe from "stripe"
 import { getProductById } from "@/lib/queries/product/getProductById"
 import { CheckoutForm } from "@/components/Checkout/CheckoutForm"
 
+export const dynamic = "force-dynamic" // Cela dit à Next.js : « ne pré-rends pas cette page, c’est toujours dynamique ».
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 
 export default async function PurchasePage({
