@@ -8,10 +8,11 @@ export const dynamic = "force-dynamic" // Cela dit à Next.js : « ne pré-rends
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 
 export default async function PurchasePage({
-  params: { id },
+  params
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const id = (await params).id
   const product = await getProductById(id)
   if (product == null) return notFound()
 

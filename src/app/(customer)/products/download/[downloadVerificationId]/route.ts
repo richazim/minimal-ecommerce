@@ -3,9 +3,9 @@ import { getValidDownloadVerification } from "@/lib/queries/download-verificatio
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { downloadVerificationId: string } }
+  { params }: { params: Promise<{ downloadVerificationId: string }> }
 ) {
-  const { downloadVerificationId } = params
+  const { downloadVerificationId } = await params
 
   // Vérifie la validité de la vérification de téléchargement
   const data = await getValidDownloadVerification(downloadVerificationId)

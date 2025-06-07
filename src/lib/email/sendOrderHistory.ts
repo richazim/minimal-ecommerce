@@ -13,6 +13,7 @@ export async function sendOrderHistory(
   formData: FormData
 ): Promise<{ message?: string; error?: string }> {
   const result = emailSchema.safeParse(formData.get("email"))
+  
   if (!result.success) {
     return { error: "Invalid email address" }
   }
@@ -39,8 +40,6 @@ export async function sendOrderHistory(
     },
   })
 
-  console.log(user)
-
   if (!user) {
     return {
       message:
@@ -51,6 +50,8 @@ export async function sendOrderHistory(
   const ordersWithLinks = await generateDownloadLinksForOrders(user.orders)
 
   const response = await sendOrderHistoryEmail(user.email, ordersWithLinks)
+
+  console.log(response)
 
   if (response.error) {
     return {

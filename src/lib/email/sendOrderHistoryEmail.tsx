@@ -7,11 +7,12 @@ export async function sendOrderHistoryEmail(
   userEmail: string,
   ordersWithLinks: any[]
 ) {
+  const reactComponent = <OrderHistoryEmail orders={ordersWithLinks} />;
   
   return resend.emails.send({
     from: `Support <${process.env.SENDER_EMAIL}>`,
     to: userEmail,
     subject: "Order History",
-    react: <OrderHistoryEmail orders={ordersWithLinks} />,
+    react: reactComponent,
   })
 }

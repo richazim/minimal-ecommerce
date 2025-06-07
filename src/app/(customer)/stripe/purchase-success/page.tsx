@@ -7,12 +7,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export default async function SuccessPage({
-  searchParams,
-}: {
-  searchParams: { payment_intent: string }
-}) {
-  const paymentIntent = await getPaymentIntent(searchParams.payment_intent)
+export default async function SuccessPage({searchParams}: {searchParams: Promise<{[paymentIntent: string]: string}>}) {
+  const value = (await searchParams).payment_intent
+  const paymentIntent = await getPaymentIntent(value)
   if (paymentIntent.metadata.productId == null) return notFound()
 
   const product = await getProductById(paymentIntent.metadata.productId)

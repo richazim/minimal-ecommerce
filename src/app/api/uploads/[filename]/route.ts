@@ -7,9 +7,9 @@ import mime from 'mime-types';
 
 export async function GET(
   req: Request,
-  { params }: { params: { filename: string } }
+  { params }: { params: Promise<{ filename: string }> }
 ) {
-  const filename = params.filename
+  const filename = (await params).filename
   if (!filename) {
     return new NextResponse("Invalid filename", { status: 400 })
   }

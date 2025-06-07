@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "email": "dotenv -e .env -- email dev --dir src/components/Email --port 3001"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",
@@ -17,11 +18,13 @@
     "@stripe/stripe-js": "^7.3.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "create-email": "^1.2.1",
     "lucide-react": "^0.511.0",
     "mime-types": "^3.0.1",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-email": "^4.0.16",
     "resend": "^4.5.2",
     "stripe": "^18.2.1",
     "tailwind-merge": "^3.3.0",
