@@ -27,27 +27,33 @@ const addSchema = z.object({
   
     const data = result.data
   
-    await fs.mkdir("products", { recursive: true })
-    const filePath = `products/${crypto.randomUUID()}-${data.file.name}`
+    // await fs.mkdir("products", { recursive: true })
+    const filename = `${crypto.randomUUID()}-${data.file.name}`;
+    const filePath = `src/uploads/${filename}`;
+    const filePathEndpoint = `/api/uploads/${filename}`;
     await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
   
-    await fs.mkdir("public/products", { recursive: true })
-    const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
+    // await fs.mkdir("public/products", { recursive: true })
+    const imageName = `${crypto.randomUUID()}-${data.image.name}`;
+    const imagePath = `src/uploads/${imageName}`
+    const imagePathEndpoint = `/api/uploads/${imageName}`
     await fs.writeFile(
-      `public${imagePath}`,
+      `${imagePath}`,
       Buffer.from(await data.image.arrayBuffer())
     )
   
-    await db.product.create({
+    const product = await db.product.create({
       data: {
         isAvailableForPurchase: false,
         name: data.name,
         description: data.description,
         priceInCents: data.priceInCents,
-        filePath,
-        imagePath,
+        filePath: filePathEndpoint,
+        imagePath: imagePathEndpoint,
       },
     })
+
+    console.log(product)
   
     revalidatePath("/")
     revalidatePath("/products")
