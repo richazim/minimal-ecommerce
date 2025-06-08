@@ -1,0 +1,47 @@
+
+npm i --save-dev prisma # Permet de créer des ORMs javascript
+
+npx prisma init --datasource-provider sqlite # Initialiser prisma
+
+//.env
+DATABASE_URL="file:./dev.db"
+
+schema.prisma: Definir tous les modèles
+
+npx prisma migrate dev --name init # Pour créer les tables, ...
+
+npm i @prisma/client
+npm install @prisma/client
+
+prisma generate
+
+
+
+npm i stripe
+npm i @stripe/stripe-js 
+npm i @stripe/react-stripe-js // Represente l'UI de stripe
+
+WEBHOOK appelé par Stripe si tous ce passe bien
+stripe login
+stripe listen --forward-to localhost:3000/webhook
+stripe trigger payment_intent.succeeded
+
+
+@react-email/components
+resend //  SDK Resend
+zod
+
+Stripe Webhook test in local environment:
+src/webhooks/stripe/route.tsx
+stripe login
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+stripe trigger 
+
+npm i react-email // contient le CLI officiel de React Email (@react-email/cli), qui fournit la commande email.
+npm install -g dotenv-cli
+npm i create-email// contient le CLI officiel de React Email (@react-email/cli), qui fournit la commande email.
+
+// verify your domain on https://resend.com/domains': (for test only on self email): 
+SENDER_EMAIL=onboarding@resend.dev
+
+
