@@ -7,11 +7,11 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
   },
-  typescript: {
-    ignoreBuildErrors: true
+  typescript: { 
+    ignoreBuildErrors: true // Temporarily
   },
   eslint: {
-    ignoreDuringBuilds: true
+    ignoreDuringBuilds: true // Temporarily
   }
 };
 
