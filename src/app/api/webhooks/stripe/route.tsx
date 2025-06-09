@@ -1,11 +1,13 @@
 import db from "@/db/db"
 import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
-import { Resend } from "resend"
+// import { Resend } from "resend"
 import PurchaseReceiptEmail from "@/components/Email/PurchaseReceiptEmail"
+import { render } from "@react-email/render"
+import { sendEmail } from "@/actions/email/sendEmail"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
-const resend = new Resend(process.env.RESEND_API_KEY as string)
+// const resend = new Resend(process.env.RESEND_API_KEY as string)
 
 export async function POST(req: NextRequest) {
 
@@ -48,18 +50,34 @@ export async function POST(req: NextRequest) {
       },
     })
     
-
-    await resend.emails.send({
-      from: `Support <${process.env.SENDER_EMAIL}>`,
-      to: email,
-      subject: "Order Confirmation",
-      react: (
-        <PurchaseReceiptEmail
+    const reactComponent = (
+      <PurchaseReceiptEmail
           order={order}
           product={product}
           downloadVerificationId={downloadVerification.id}
         />
-      ),
+    )
+
+    const htmlContent = await render(reactComponent);
+
+    // await resend.emails.send({
+    //   from: `Support <${process.env.SENDER_EMAIL}>`,
+    //   to: email,
+    //   subject: "Order Confirmation",
+    //   react: (
+    //     <PurchaseReceiptEmail
+    //       order={order}
+    //       product={product}
+    //       downloadVerificationId={downloadVerification.id}
+    //     />
+    //   ),
+    // })
+
+    await sendEmail({
+      to: email,
+      subject: "Order Confirmation",
+      text: "To see the order confirmation, please activate the html version of this email.",
+      html: htmlContent
     })
   }
 

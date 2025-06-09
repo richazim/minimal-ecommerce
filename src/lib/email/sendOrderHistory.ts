@@ -51,8 +51,6 @@ export async function sendOrderHistory(
 
   const response = await sendOrderHistoryEmail(user.email, ordersWithLinks)
 
-  console.log(response)
-
   if (response.error) {
     return {
       error: "There was an error sending your email. Please try again.",

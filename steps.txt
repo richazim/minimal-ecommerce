@@ -45,3 +45,10 @@ npm i create-email// contient le CLI officiel de React Email (@react-email/cli),
 SENDER_EMAIL=onboarding@resend.dev
 
 
+
+
+npm i googleapis nodemailer 
+
+
+
+npm install @react-email/render
