@@ -5,6 +5,7 @@ import { z } from "zod"
 import fs from "fs/promises"
 import { notFound, redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
+import { extractFilenameFromPath } from "@/app/admin/_lib/utils/filename"
 
 const fileSchema = z.instanceof(File, { message: "Required" })
 const imageSchema = fileSchema.refine(
@@ -38,19 +39,31 @@ export async function updateProduct(
   
     if (product == null) return notFound()
   
-    let filePath = product.filePath
+    let filePathEndpoint = product.filePath
     if (data.file != null && data.file.size > 0) {
-      await fs.unlink(product.filePath)
-      filePath = `products/${crypto.randomUUID()}-${data.file.name}`
+      // const realFilePath = extractFilenameFromPath(product.filePath)
+      // await fs.unlink(realFilePath)
+      const fullFilePath = `src/uploads/${extractFilenameFromPath(product.filePath)}`
+      await fs.unlink(fullFilePath)
+
+      const filename = `${crypto.randomUUID()}-${data.file.name}`;
+      // filePath = `products/${crypto.randomUUID()}-${data.file.name}`
+      // await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
+      filePathEndpoint = `/api/uploads/${filename}`;
+      const filePath = `src/uploads/${filename}`
       await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
     }
   
-    let imagePath = product.imagePath
+    let imagePathEndpoint = product.imagePath
     if (data.image != null && data.image.size > 0) {
-      await fs.unlink(`public${product.imagePath}`)
-      imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
+      const fullImagePath = `src/uploads/${extractFilenameFromPath(product.imagePath)}`
+      await fs.unlink(fullImagePath)
+
+      const imageName = `${crypto.randomUUID()}-${data.image.name}`;
+      imagePathEndpoint = `/api/uploads/${imageName}`;
+      const imagePath = `src/uploads/${imageName}`
       await fs.writeFile(
-        `public${imagePath}`,
+        imagePath,
         Buffer.from(await data.image.arrayBuffer())
       )
     }
@@ -61,8 +74,8 @@ export async function updateProduct(
         name: data.name,
         description: data.description,
         priceInCents: data.priceInCents,
-        filePath,
-        imagePath,
+        filePath: filePathEndpoint,
+        imagePath: imagePathEndpoint,
       },
     })
   

@@ -11,12 +11,12 @@ export async function deleteProduct(id: string) {
     const product = await db.product.delete({ where: { id } })
   
     if (product == null) return notFound()
-    
-    const realFilePath = extractFilenameFromPath(product.filePath)
-    const realImagePath = extractFilenameFromPath(product.imagePath)
 
-    await fs.unlink(realFilePath)
-    await fs.unlink(realImagePath)
+    const fullFilePath = `src/uploads/${extractFilenameFromPath(product.filePath)}`
+    const fullImageFilePath = `src/uploads/${extractFilenameFromPath(product.imagePath)}`
+
+    await fs.unlink(fullFilePath)
+    await fs.unlink(fullImageFilePath)
   
     revalidatePath("/")
     revalidatePath("/products")
