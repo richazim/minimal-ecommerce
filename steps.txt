@@ -46,6 +46,13 @@ SENDER_EMAIL=onboarding@resend.dev
 
 
 
+// Google Cloud Console
+// project to use youtube api
+// Activer le service Youtube API
+// Activer l'Oauth2
+// Autoriser l'url de playground google de récupération de token d'cces a votre compte ggmail
+// Récupérer le client ID et le Secret Key de l'Oauth2
+// 
 
 npm i googleapis nodemailer 
 
