@@ -1,7 +1,8 @@
-import nodemailer from "nodemailer";
+"use server";
+
+import nodemailer, { TransportOptions } from "nodemailer";
 import { google } from "googleapis";
 
-// Configuration OAuth2
 const oAuth2Client = new google.auth.OAuth2(
   process.env.GMAIL_CLIENT_ID,
   process.env.GMAIL_CLIENT_SECRET,
@@ -12,17 +13,23 @@ oAuth2Client.setCredentials({
   refresh_token: process.env.GMAIL_REFRESH_TOKEN,
 });
 
-// Fonction pour envoyer un email via Gmail API
-export async function sendEmail({ to, subject, text, html }: {to: string, subject: string, text: string, html: string}) {
+export async function sendEmail({
+  to,
+  subject,
+  text,
+  html,
+}: {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+}) {
   try {
-    // Récupère le token d'accès à partir du refresh_token
     const { token } = await oAuth2Client.getAccessToken();
+    if (!token) throw new Error("Access token is null");
 
-    // Create a transporter for SMTP
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      service: "gmail",
       auth: {
         type: "OAuth2",
         user: process.env.GMAIL_USER,
@@ -31,22 +38,21 @@ export async function sendEmail({ to, subject, text, html }: {to: string, subjec
         refreshToken: process.env.GMAIL_REFRESH_TOKEN,
         accessToken: token,
       },
-    });
+    } as TransportOptions);
 
-    // Options du mail
     const mailOptions = {
-      from: `Mon App <${process.env.GMAIL_USER}>`,
+      from: `"Mon App" <${process.env.GMAIL_USER}>`,
       to,
       subject,
       text,
       html,
     };
 
-    // Envoi de l’email
     const result = await transporter.sendMail(mailOptions);
+    console.log("✅ Email envoyé. Message ID :", result.messageId);
     return result;
   } catch (error) {
-    console.error("Erreur envoi email :", error);
+    console.error("❌ Erreur envoi email :", error);
     throw error;
   }
 }
