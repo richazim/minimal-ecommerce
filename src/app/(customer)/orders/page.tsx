@@ -16,9 +16,15 @@ import { useActionState } from "react"
 import { useFormStatus } from "react-dom"
 
 export default function MyOrdersPage() {
-  const [data, action] = useActionState(sendOrderHistory, {})
+  const [data, actionFn] = useActionState(sendOrderHistory, {})
+  /*
+    const [state, actionFn, isPending] = useActionState(action, initialState);
+    useActionState = → Une solution élégante pour gérer l’état côté client d’une Server Action
+  */
+
+
   return (
-    <form action={action} className="max-2-xl mx-auto">
+    <form action={actionFn} className="max-2-xl mx-auto">
       <Card>
         <CardHeader>
           <CardTitle>My Orders</CardTitle>

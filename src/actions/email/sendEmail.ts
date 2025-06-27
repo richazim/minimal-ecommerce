@@ -2,6 +2,7 @@
 
 import nodemailer, { TransportOptions } from "nodemailer";
 import { google } from "googleapis";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 const oAuth2Client = new google.auth.OAuth2(
   process.env.GMAIL_CLIENT_ID,
@@ -23,7 +24,7 @@ export async function sendEmail({
   subject: string;
   text: string;
   html: string;
-}) {
+}): Promise<SMTPTransport.SentMessageInfo> {
   try {
     const { token } = await oAuth2Client.getAccessToken();
     if (!token) throw new Error("Access token is null");
