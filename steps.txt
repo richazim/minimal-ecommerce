@@ -13,7 +13,7 @@ npx prisma migrate dev --name init # Pour créer les tables, ...
 npm i @prisma/client
 npm install @prisma/client
 
-prisma generate
+npx prisma generate # génère un client prisma en fonction du projet et de l'environnement
 
 
 
