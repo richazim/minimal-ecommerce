@@ -10,4 +10,5 @@ export const getNewestProducts = cache(
     })
   },
   ["/", "getNewestProducts"],
+  { revalidate: 60 }
 )

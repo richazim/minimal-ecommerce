@@ -10,8 +10,10 @@ import { formatCurrency } from "@/lib/utils/format"
 import { CheckoutFormProps } from "@/types/checkout"
 
 export function CheckoutForm({ product, clientSecret }: CheckoutFormProps) {
+
   return (
     <div className="max-w-5xl w-full mx-auto space-y-8">
+
       <div className="flex gap-4 items-center">
         <div className="aspect-video flex-shrink-0 w-1/3 relative">
           <Image
@@ -31,9 +33,11 @@ export function CheckoutForm({ product, clientSecret }: CheckoutFormProps) {
           </div>
         </div>
       </div>
+
       <Elements options={{ clientSecret }} stripe={stripePromise}>
         <PaymentForm priceInCents={product.priceInCents} productId={product.id} />
       </Elements>
+      
     </div>
   )
 }

@@ -12,8 +12,11 @@ export default async function PurchasePage({
 }: {
   params: Promise<{ id: string }>
 }) {
+
   const id = (await params).id
+
   const product = await getProductById(id)
+  
   if (product == null) return notFound()
 
   const paymentIntent = await stripe.paymentIntents.create({

@@ -8,5 +8,6 @@ export const getProducts = cache(
       orderBy: { name: "asc" },
     })
   },
-  ["/products", "getProducts"]
+  ["/products", "getProducts"],
+  { revalidate: 60 }
 )

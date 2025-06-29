@@ -24,6 +24,7 @@ import {
     order,
     downloadVerificationId,
   }: PurchaseReceiptEmailProps) {
+    
     return (
       <Html>
         <Preview>Download {product.name} and view receipt</Preview>

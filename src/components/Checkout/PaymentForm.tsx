@@ -26,6 +26,7 @@ function PaymentForm({
   priceInCents: number;
   productId: string;
 }) {
+
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,9 +43,7 @@ function PaymentForm({
     const orderExists = await userOrderExists(email, productId);
 
     if (orderExists) {
-      setErrorMessage(
-        "You have already purchased this product. Try downloading it from the My Orders page"
-      );
+      setErrorMessage("You have already purchased this product. Try downloading it from the My Orders page");
       setIsLoading(false);
       return;
     }
@@ -69,23 +68,35 @@ function PaymentForm({
   return (
     <form onSubmit={handleSubmit}>
       <Card>
+
         <CardHeader>
+
           <CardTitle>Checkout</CardTitle>
+
           {errorMessage && (
             <CardDescription className="text-destructive">
               {errorMessage}
             </CardDescription>
           )}
+
         </CardHeader>
+
+
         <CardContent>
+
           <PaymentElement />
+
           <div className="mt-4">
             <LinkAuthenticationElement
               onChange={(e) => setEmail(e.value.email)}
             />
           </div>
+
         </CardContent>
+
+
         <CardFooter>
+
           <Button
             className="w-full"
             size="lg"
@@ -95,7 +106,9 @@ function PaymentForm({
               ? "Purchasing..."
               : `Purchase - ${formatCurrency(priceInCents / 100)}`}
           </Button>
+
         </CardFooter>
+
       </Card>
     </form>
   );
